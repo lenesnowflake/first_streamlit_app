@@ -1,6 +1,8 @@
 import streamlit
 import pandas
+import requests
 import snowflake.connector
+import urllib.error import URLError
 
 streamlit.title('My Parents New Healthy Diner')
 streamlit.title('TEST')
@@ -11,6 +13,7 @@ streamlit.text('🥗 Kale, Spinach & Rocket Smoothie')
 streamlit.text('🐔 Hard-Boiled Free-Range Egg')
 streamlit.text('🥑🍞 Avocado Toast')
 
+#import pandas
 streamlit.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇')
 my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
 my_fruit_list = my_fruit_list.set_index('Fruit')
@@ -25,7 +28,7 @@ streamlit.header("Fruityvice Fruit Advice!")
 
 fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
 streamlit.write('The user entered ', fruit_choice)
-import requests
+#import response
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
 
 #display the same api response with key value pairs displayed in a table structure
@@ -37,6 +40,7 @@ streamlit.dataframe(fruityvice_normalized)
 streamlit.stop()
 
 #Querying the trial account metadata 
+#import snowflake.connector
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
 my_cur.execute("select * from fruit_load_list")
